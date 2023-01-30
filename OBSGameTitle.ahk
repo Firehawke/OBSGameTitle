@@ -1,31 +1,48 @@
-; Start by giving us our GUI.
-Gui, New, -Caption -Resize -MaximizeBox -MinimizeBox
-Gui, Font, s12, MS Sans Serif
-Gui, Font, s12, Arial
-Gui, Font, s12, Verdana  ; Set 10-point Verdana.
+; Redesigned on 1/29/2023 to run on AHK 2.x
+; Improved error handling as well.
 
-; Let's open the text file for editing..
-FileRead, Buffer, C:\StreamTools\GameInfo.txt
+; Start by giving us our GUI.
+ThisGui := Gui("-Caption -Resize -MaximizeBox -MinimizeBox")
+ThisGui.SetFont("s12", "MS Sans Serif")
+ThisGui.SetFont("s12", "Arial")
+ThisGui.SetFont("s12", "Verdana")  ; These font choices in ascending order of availability.
 
 ; Add the text box
-Gui, Add, Edit, r5 w700 vBuffer
-GuiControl,, Buffer, %Buffer%
-Gui, Add, Button, w100 default gSave, Save
-Gui, Add, Button, w100 gCancel x+20, Cancel
+TextBox := ThisGui.Add("Edit","r5 vBuffer -wrap w700")
+
+Try
+{
+	; Let's open the text file for editing..
+	OutFile := FileOpen("C:\StreamTools\GameInfo.txt","r")
+	
+	if IsObject(OutFile)
+	{
+		; We have an existing file, so let's read from it and then fill the textbox with it.
+		TextBox.Text := TextBuffer := OutFile.Read()
+		OutFile.Close()
+	}
+}
+
+ThisGui.Add("Button", "w100 default", "Save").OnEvent("Click", DoSave)
+ThisGui.Add("Button", "w100 x+20", "Cancel").OnEvent("Click", DoExit)
 
 ; Now show us the GUI.
-Gui, Show
+ThisGui.Show()
 Return
 
-Save:
-GuiControlGet, Buffer ; This updates the variable with what's in the text field. Very important!
-OutFile := FileOpen("c:\StreamTools\Gameinfo.txt", "w")
-if !IsObject(OutFile)
-{
-    MsgBox Can't open c:\StreamTools\Gameinfo.txt for writing..!
-    ExitApp
-}
-OutFile.Write(Buffer)
+DoSave(*) {
+	OutFile := FileOpen("C:\StreamTools\GameInfo.txt","w")
+	if !IsObject(OutFile)
+	{
+		MsgBox("Can't open c:\StreamTools\GameInfo.txt for writing..!")
+		ExitApp
+	}
 
-Cancel:
-ExitApp
+	OutFile.Write(TextBox.Text)
+	OutFile.Close()
+	ExitApp
+}
+
+DoExit(*) {
+	ExitApp
+}
