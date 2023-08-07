@@ -6,7 +6,7 @@ somewhat better error handling than before.
 
 ## About
 
-I use a OBS text source going to "C:\StreamTools\GameInfo.txt" as a sidebar when I stream. Using Notepad to change the title between game-changes is a bit of a pain, even with the assistance of a Stream Deck.
+I use a OBS text source going to "GameInfo.txt" as a sidebar when I stream. Using Notepad to change the title between game-changes is a bit of a pain, even with the assistance of a Stream Deck.
 
 This tool creates a small-ish pop-up window in the center of the screen to edit precisely that one file and save (or cancel) very quickly so I can go back to making a fool of myself on Twitch.
 
@@ -22,6 +22,10 @@ GPLv3. Why? It's a tiny script, doesn't do a whole lot. Really simple, anyone co
 Absolutely none. If you break this, you get to keep the pieces. The output file is hard-coded because I honestly believe I'm probably one of MAYBE 5 people in the entire world that might use this and those five people know enough to edit the source and compile one that does a bit more if that's what they want/need.
 
 ## History
+
+Version 2.2 came out on August 7th, 2023, and it made some basic modifications to the output system to make it less system-specific. It also includes the ability to copy the game history to the clipboard (useful for copying to a Tweet or Discord message!)
+
+* All hard-coded paths have been removed, and OBSGameTitle will now just dump ``GameTitleText.txt``, ``GameInfoText.txt``, ``GameHistory.txt``, and ``GameInfo.txt`` to the current execution folder (which will be right where OBSGameTitle.exe is saved in almost all cases).
 
 Version 2.1 came out on June 12th, 2023, and it overhauled the output system to write to several files with different information depending on need:
 
