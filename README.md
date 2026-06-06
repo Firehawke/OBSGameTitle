@@ -23,6 +23,18 @@ Absolutely none. If you break this, you get to keep the pieces. The output file 
 
 ## History
 
+Version 2.5 came out on June 5th, 2026, and it again overhauled the output system to write to additional files with more information depending on need.
+
+* ``GameTitleText.txt`` contains just the game title text by itself (e.g. ``Metroid``).
+* ``GameSystemText.txt`` contains just the system name (e.g. ``NES``)
+* ``DescInfoText.txt`` contains just the stream information text (usually a description of the stream in progress e.g. ``Physical Therapy Stream today..``)
+* ``GameHistory.txt`` now contains a history of all games played this stream. You can clear it from the obviously labeled button. There is also a button for updating the text files WITHOUT updating the history-- this is used when you're not changing games but want to reformat the text slightly (e.g. it doesn't completely fit in the OBS text box)
+* ``GameInfo.txt``, just as before, contains the sum of the GameTitleText and the GameInfoText in one file.
+* ``CombinedText.txt``, which contains the Game Title (e.g. Metroid) and the system (e.g. NES) in a combined line that looks like ``Metroid (NES)       `` -- notice there are seven spaces at the end. This file is used with OBS's text scrolling capability as that needs a spacer at the end.
+* ``GameSystenTextNoSpacer.txt``, which contains the Game Title (e.g. Metroid) and the system (e.g. NES) in a combined line that looks like ``Metroid (NES)`` -- notice there are no spaces. If you want the combined text but it's not supposed to scroll, you probably want this one.
+
+One major change from version 2.2 is that ``GameInfo.txt`` was renamed to ``DescInfoText.txt``
+
 Version 2.2 came out on August 7th, 2023, and it made some basic modifications to the output system to make it less system-specific. It also includes the ability to copy the game history to the clipboard (useful for copying to a Tweet or Discord message!)
 
 * All hard-coded paths have been removed, and OBSGameTitle will now just dump ``GameTitleText.txt``, ``GameInfoText.txt``, ``GameHistory.txt``, and ``GameInfo.txt`` to the current execution folder (which will be right where OBSGameTitle.exe is saved in almost all cases).
