@@ -26,11 +26,29 @@ Try
 If GameBox.Text == ""
     GameBox.Text := "Game Title Here"
 
+; Next the Game System...
+SystemBox := ThisGui.Add("Edit","r1 vSystemBuffer -wrap w700")
+
+Try
+{
+	; Let's open the desc file for editing..
+	SystemFile := FileOpen("GameSystemText.txt","r")
+	
+	if IsObject(SystemFile)
+	{
+		; We have an existing file, so let's read from it and then fill the GameBox with it.
+		SystemBox.Text := TextBuffer := SystemFile.Read()
+		SystemFile.Close()
+	}
+}
+If SystemBox.Text == ""
+    SystemBox.Text := "NES"
+
 DescBox := ThisGui.Add("Edit","r5 vDescBuffer -wrap w700")
 Try
 {
 	; Let's open the desc file for editing..
-	DescFile := FileOpen("GameInfoText.txt","r")
+	DescFile := FileOpen("DescInfoText.txt","r")
 	
 	if IsObject(DescFile)
 	{
@@ -58,7 +76,8 @@ DoHistorySave(*) {
             MsgBox("Can't open GameHistory.txt for writing..!")
             ExitApp
         }
-    HistoryFile.Write(GameBox.Text . ", ")
+	GamePlusSystem := GameBox.Text . " (" . SystemBox.Text . ")"
+    HistoryFile.Write(GamePlusSystem . ", ")
     HistoryFile.Close()
     DoSave()
 }
@@ -92,10 +111,24 @@ DoSave(*) {
 		ExitApp
 	}
 
-	DescFile := FileOpen("GameInfoText.txt","w")
+	SystemFile := FileOpen("GameSystemText.txt","w")
+	if !IsObject(SystemFile)
+	{
+		MsgBox("Can't open GameSystemText.txt for writing..!")
+		ExitApp
+	}
+
+	CombinedFile := FileOpen("CombinedText.txt","w")
+	if !IsObject(CombinedFile)
+	{
+		MsgBox("Can't open CombinedText.txt for writing..!")
+		ExitApp
+	}
+
+	DescFile := FileOpen("DescInfoText.txt","w")
 	if !IsObject(DescFile)
 	{
-		MsgBox("Can't open GameInfoText.txt for writing..!")
+		MsgBox("Can't open DescInfoText.txt for writing..!")
 		ExitApp
 	}
 
@@ -106,14 +139,29 @@ DoSave(*) {
 		ExitApp
 	}
 
+	NoSpacerFile := FileOpen("GameSystenTextNoSpacer.txt","w")
+	if !IsObject(NoSpacerFile)
+	{
+		MsgBox("Can't open GameSystenTextNoSpacer.txt for writing..!")
+		ExitApp
+	}
+
+	GamePlusSystem := GameBox.Text . " (" . SystemBox.Text . ")       "
+	GamePlusSystemNoSpacer := GameBox.Text . " (" . SystemBox.Text . ")"
     GameFile.Write(GameBox.Text)
+	SystemFile.Write(SystemBox.Text)
+	CombinedFile.Write(GamePlusSystem)
 	DescFile.Write(DescBox.Text)
-    OverallFile.Write(GameBox.Text)
+    OverallFile.Write(GamePlusSystemNoSpacer)
+    NoSpacerFile.Write(GamePlusSystemNoSpacer)
     OverallFile.Write("`n`n")
 	OverallFile.Write(DescBox.Text)
 	GameFile.Close()
-    DescFile.Close()
+    SystemFile.Close()
+	CombinedFile.Close
+	DescFile.Close()
     OverallFile.Close()
+	NoSpacerFile.Close()
 
     ExitApp
 }
