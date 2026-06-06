@@ -1,6 +1,10 @@
+; Adjustments on 6/5/2026 and 6/6/2026 to force single instance and split to more files.
 ; Overhaul on 6/12/2023 to split GameInfo into two files.
 ; Redesigned on 1/29/2023 to run on AHK 2.x
 ; Improved error handling as well.
+
+; Force-disable the multiple instance dialog box.
+#SingleInstance force
 
 ; Start by giving us our GUI.
 ThisGui := Gui("-Caption -Resize -MaximizeBox -MinimizeBox")

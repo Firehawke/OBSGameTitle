@@ -1,14 +1,13 @@
 # OBSGameTitle
 AutoHotkey script for a "quick pop-up and disappear" game information script for use with OBS.
 
-This has been updated to run from/compile from AutoHotKey 2.x, and includes
-somewhat better error handling than before.
+This has been updated to run from/compile from AutoHotKey 2.x, and includes somewhat better error handling than before.
 
 ## About
 
-I use a OBS text source going to "GameInfo.txt" as a sidebar when I stream. Using Notepad to change the title between game-changes is a bit of a pain, even with the assistance of a Stream Deck.
+I use OBS text sources going to several text files (see the History section below on what is created) as a sidebar when I stream. Using Notepad to change the title between game-changes is a bit of a pain, even with the assistance of a Stream Deck.
 
-This tool creates a small-ish pop-up window in the center of the screen to edit precisely that one file and save (or cancel) very quickly so I can go back to making a fool of myself on Twitch.
+This tool creates a small-ish pop-up window in the center of the screen to edit precisely that one file and save (or cancel) very quickly so I can go back to making a fool of myself on Twitch. It is designed to be called by a button on a Stream Deck to speed up the process of switching game information.
 
 ## Demonstration
 ![Screenshot](https://github.com/Firehawke/OBSGameTitle/raw/master/Demo.png)
@@ -22,6 +21,8 @@ GPLv3. Why? It's a tiny script, doesn't do a whole lot. Really simple, anyone co
 Absolutely none. If you break this, you get to keep the pieces. The output file is hard-coded because I honestly believe I'm probably one of MAYBE 5 people in the entire world that might use this and those five people know enough to edit the source and compile one that does a bit more if that's what they want/need.
 
 ## History
+
+Version 2.6 came out on June 6th, 2026, and it just force-disabled the multiple instance dialog box that pops up when you load the application more than once by accident. It also includes some minor documentation updates.
 
 Version 2.5 came out on June 5th, 2026, and it again overhauled the output system to write to additional files with more information depending on need.
 
